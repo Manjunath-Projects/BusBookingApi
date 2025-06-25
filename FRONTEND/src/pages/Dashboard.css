@@ -1,8 +1,20 @@
+.class{
+  background: url('https://images.pexels.com/photos/7245319/pexels-photo-7245319.jpeg') no-repeat center center;
+}
+
+
+
+
 .dashboard-container {
   padding: 20px;
-  background: #f0f2f5;
   min-height: 100vh;
+  background: url('https://images.pexels.com/photos/7245319/pexels-photo-7245319.jpeg') no-repeat center center;
+  background-size: contain;  /* This ensures full image fits inside the container */
+  background-attachment: fixed; /* Optional: makes background stay still on scroll */
+  background-color: #f0f2f5; /* Fills remaining space around the image */
+
 }
+
 
 .search-form {
   display: flex;
@@ -68,4 +80,13 @@
 
 .my-bookings-btn:hover {
   background: #138496;
+}
+
+.my-bookings-btn-logout{
+   margin: 20px 0;
+  padding: 10px 20px;
+  background: red;
+  color: white;
+  border: none;
+  cursor: pointer;
 }

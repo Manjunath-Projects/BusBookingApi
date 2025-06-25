@@ -200,14 +200,17 @@
 
 import { useEffect, useState } from "react";
 import "./AdminDashboard.css";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminDashboard() {
   const [buses, setBuses] = useState([]);
   const [users, setUsers] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [editingBus, setEditingBus] = useState(null);
-
   const [showAddForm, setShowAddForm] = useState(false);
+
+  const navigate = useNavigate();
+
   const [busForm, setBusForm] = useState({
     busNumber: "",
     capacity: "",
@@ -286,6 +289,10 @@ export default function AdminDashboard() {
       alert(err.message);
     }
   };
+
+  const handleClick =()=>{
+    navigate('/')
+  }
 
   const handleDeleteBus = async (busId) => {
   try {
@@ -386,10 +393,17 @@ const handleUpdateBus = async (e) => {
             required
           />
           <button type="submit">Add Bus</button>
+          
         </form>
       )}
 
-      <h2>All Buses</h2>
+      <div>
+            <button className="my-bookings-btn" onClick={handleClick} >
+        Logout
+      </button>
+          </div>
+
+      {/* <h2>All Buses</h2> */}
       <div className="grid-container">
         {buses.map((bus) => (
           <div key={bus._id} className="card">
@@ -402,6 +416,7 @@ const handleUpdateBus = async (e) => {
         ))}
       </div>
 
+
       {/* <h2>All Users</h2>
       <div className="grid-container">
         {users.map((user) => (
@@ -413,6 +428,7 @@ const handleUpdateBus = async (e) => {
       </div> */}
 
       <h2>Booking Details</h2>
+      
       <div className="grid-container">
   {bookings.map((booking) => (
     <div key={booking._id} className="card">
@@ -421,7 +437,10 @@ const handleUpdateBus = async (e) => {
       <p><strong>Route:</strong> {booking.bus?.route.from} → {booking.bus?.route.to}</p>
       <p><strong>Date:</strong> {booking.date}</p>
       <p><strong>Status:</strong> {booking.status}</p>
+
+      
     </div>
+    
   ))}
 </div>
     </div>

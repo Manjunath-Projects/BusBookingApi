@@ -1,13 +1,24 @@
 .login-container {
   min-height: 100vh;
-  background: linear-gradient(to right, #cfd9df, #e2ebf0);
+  position: relative;
+  background: url('https://images.pexels.com/photos/205353/pexels-photo-205353.jpeg') no-repeat center center;
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
 .login-box {
-  background: white;
+  position: relative;
+  z-index: 2;
+ background: rgba(255, 255, 255, 0.50);
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -36,7 +47,7 @@
 
 .login-box button {
   padding: 10px;
-  background-color: #007bff;
+  background-color: black;
   border: none;
   color: white;
   font-weight: bold;

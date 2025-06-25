@@ -9,7 +9,7 @@ import AdminDashboard from './pages/AdminDashboard';
 export default function App() {
   return (
     <div>
-      <nav className="bg-blue-600 text-white shadow-md">
+      {/* <nav className="bg-blue-600 text-white shadow-md">
   <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
     <div className="text-xl font-bold">NammBus</div>
     <div className="space-x-4">
@@ -18,7 +18,7 @@ export default function App() {
       <Link to="/auth" className="hover:underline">Login</Link>
     </div>
   </div>
-</nav>
+</nav> */}
       <div className="bg-gray-50 min-h-screen">
       <Routes>
         <Route path="/" element={<Home />} />

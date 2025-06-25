@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './Dashboard.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
   const [from, setFrom] = useState('');
@@ -8,6 +9,7 @@ export default function Dashboard() {
   const [buses, setBuses] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const token = localStorage.getItem('token');
 
@@ -27,6 +29,10 @@ export default function Dashboard() {
     }
     setLoading(false);
   };
+
+  const handleClick =()=>{
+    navigate('/')
+  }
 
   const handleBook = async (busId) => {
     try {
@@ -48,17 +54,17 @@ export default function Dashboard() {
   };
 
   const loadBookings = async () => {
-    try {
-      const res = await fetch(`http://localhost:5000/api/user/booking/admin/all`, {
-  headers: { Authorization: `Bearer ${token}` }
-});
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || 'Failed to load bookings');
-      setBookings(data);
-    } catch (err) {
-      alert(err.message);
-    }
-  };
+  try {
+    const res = await fetch(`http://localhost:5000/api/user/booking`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Failed to load bookings');
+    setBookings(data);
+  } catch (err) {
+    alert(err.message);
+  }
+};
 
   const handleCancel = async (bookingId) => {
     try {
@@ -75,6 +81,7 @@ export default function Dashboard() {
   };
 
   return (
+    <div className="class">
     <div className="dashboard-container">
       <form className="search-form" onSubmit={handleSearch}>
         <input
@@ -112,10 +119,15 @@ export default function Dashboard() {
           </div>
         ))}
       </div>
-
+        <div >
       <button className="my-bookings-btn" onClick={loadBookings}>
         My Bookings
       </button>
+      <br></br><br></br>
+      <button className="my-bookings-btn-logout" onClick={handleClick}>
+        Logout
+      </button>
+      </div>
 
       <div className="grid-container">
   {bookings.map((booking) => (
@@ -124,11 +136,13 @@ export default function Dashboard() {
       <p><strong>Bus Number:</strong> {booking.bus?.busNumber}</p>
       <p><strong>Route:</strong> {booking.bus?.route.from} → {booking.bus?.route.to}</p>
       <p><strong>Date:</strong> {booking.date}</p>
-      <p><strong>Status:</strong> {booking.status}</p>
+      <p><strong>Status:</strong> {booking.status}</p> 
+      <button onClick={() => handleCancel(booking._id)}>Cancel</button>
     </div>
   ))}
 </div>
 
+    </div>
     </div>
   );
 }

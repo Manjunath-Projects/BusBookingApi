@@ -1,0 +1,43 @@
+.home-container {
+  background-image: url('https://images.pexels.com/photos/31678652/pexels-photo-31678652.jpeg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 40px 60px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.home-title {
+  color: #fff;
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.home-subtitle {
+  color: #ddd;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.home-login-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.home-login-btn:hover {
+  background: #0056b3;
+}
