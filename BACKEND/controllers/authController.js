@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const generateToken = (id, role) => {
-  return jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: '15m' });
+  return jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: '1d' });
 };
 
 const generateRefreshToken = (id) => {
@@ -11,10 +11,26 @@ const generateRefreshToken = (id) => {
 };
 
 exports.register = async (req, res) => {
-  const { email, password, role } = req.body;
-  const hashed = await bcrypt.hash(password, 10);
-  const user = await User.create({ email, password: hashed, role });
-  res.json({ message: 'Registered successfully' });
+  try {
+    const { email, password, role } = req.body;
+    if (!email || !password || !role) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    const exists = await User.findOne({ email });
+    if (exists) {
+      return res.status(400).json({ message: 'Email already registered' });
+    }
+
+    const hashed = await bcrypt.hash(password, 10);
+    const user = await User.create({ email, password: hashed, role });
+
+    const token = generateToken(user._id, user.role);
+    res.status(201).json({ token });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error during registration' });
+  }
 };
 
 exports.login = async (req, res) => {

@@ -1,0 +1,71 @@
+.dashboard-container {
+  padding: 20px;
+  background: #f0f2f5;
+  min-height: 100vh;
+}
+
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-form input, .search-form button {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.search-form input {
+  flex: 1 1 150px;
+}
+
+.search-form button {
+  background: #007bff;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.search-form button:disabled {
+  background: #6c757d;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+
+.card button {
+  margin-top: 10px;
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.card button:hover {
+  background: #218838;
+}
+
+.my-bookings-btn {
+  margin: 20px 0;
+  padding: 10px 20px;
+  background: #17a2b8;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.my-bookings-btn:hover {
+  background: #138496;
+}

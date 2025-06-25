@@ -4,12 +4,25 @@ export default function Home() {
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
   const [date, setDate] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState(null);
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    console.log(`Searching buses from ${from} to ${to} on ${date}`);
-    // Call your API here
-  };
+    setLoading(true);
+    try {
+      const res = await fetch(`http://localhost:5000/api/admin/bus/search?from=${from}&to=${to}`, {
+        headers: { Authorization: `Bearer ${yourToken}` }
+      });
+      if (!res.ok) throw new Error('Search failed');
+      const data = await res.json();
+      setSearchResults(data);
+    } catch (err) {
+      console.error(err);
+      alert('No buses found or error occurred');
+    }
+    setLoading(false);
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 flex flex-col items-center justify-center p-6">
@@ -51,6 +64,21 @@ export default function Home() {
             Search
           </button>
         </form>
+
+        {loading && <div className="mt-4 text-blue-600 font-semibold">Searching...</div>}
+
+        {searchResults && (
+          <div className="mt-8 grid gap-4">
+            {searchResults.map(bus => (
+              <div key={bus._id} className="border rounded-lg p-4 shadow-sm bg-white">
+                <div className="font-bold text-lg">{bus.busNumber}</div>
+                <div className="text-gray-600">{bus.route.from} → {bus.route.to}</div>
+                <div className="text-sm">Capacity: {bus.capacity}</div>
+              </div>
+            ))}
+          </div>
+        )}
+
       </div>
     </div>
   );
