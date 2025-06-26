@@ -1,16 +1,22 @@
-version: '3.8'
-
+version: "3.9"
 services:
   backend:
     build: ./backend
-    container_name: mern_backend
-    ports: "5000:5000"  
-    environment: MONGO_URI=mongodb+srv://patilmanju4321:0123456789@cluster0.usmv7mb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-    restart: always
+    container_name: backend
+    ports:
+      - "5000:5000"             # ✅ array of strings
+    environment:
+      - NODE_ENV=production      # ✅ as object (key: value)
+      - DATABASE_URL=mongodb+srv://patilmanju4321:0123456789@cluster0.usmv7mb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+    # or as list:
+    # environment:
+    #   - NODE_ENV=production
+    #   - DATABASE_URL=mongodb://...
 
   frontend:
     build: ./frontend
-    container_name: mern_frontend
-    ports: "5173:5173"
-    depends_on: backend
-    restart: always
+    container_name: frontend
+    ports:
+      - "3000:3000"             # ✅ array of strings
+    depends_on:
+      - backend                 # ✅ array of services
